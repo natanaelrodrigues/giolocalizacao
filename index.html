@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-Br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocalização</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB75nCThjUje0FP5-kZiyIzZTKNB0MUb1g&callback=initMap"></script>
+
+    <style>
+        #map{
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="map"></div>
+
+    <script type="text/javascript"> 
+        // video base
+        //https://www.youtube.com/watch?v=xJubVipcHrM
+
+        //1- pegar o API key
+        //https://developers.google.com/maps/documentation/javascript/get-api-key
+
+
+        //2 - código
+        x = navigator.geolocation;
+
+        x.getCurrentPosition(success, failure);
+
+        function success(position){
+
+            let myLat = position.coords.latitude;
+            let myLong = position.coords.longitude;
+
+            let coords = new google.maps.LatLng(myLat, myLong)
+            let mapOptions= {
+                zoom:11,
+                center: coords,
+                maptTypeId: google.maps.MapTypeId.ROADMAP 
+            }
+
+            let map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+            let marker = new google.maps.Marker({map:map, position:coords});
+        }
+
+        function failure(){}
+    </script>
+</body>
+</html>
